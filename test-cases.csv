@@ -1,0 +1,17 @@
+ID,Module,Title,Preconditions,Steps,Expected Result,Priority,Status
+TC-001,Login,Valid login,On login page,"1. Enter standard_user 2. Enter secret_sauce 3. Click Login",Products page is shown,High,Pass
+TC-002,Login,Locked out user,On login page,"1. Enter locked_out_user 2. Enter secret_sauce 3. Click Login",Error: user has been locked out,High,Pass
+TC-003,Login,Wrong password,On login page,"1. Enter standard_user 2. Enter wrong_pw 3. Click Login",Error: username and password do not match,High,Pass
+TC-004,Login,Empty username,On login page,"1. Leave username empty 2. Enter password 3. Click Login",Error: Username is required,Medium,Pass
+TC-005,Login,Empty password,On login page,"1. Enter username 2. Leave password empty 3. Click Login",Error: Password is required,Medium,Pass
+TC-006,Products,Product list count,Logged in as standard_user,1. Open Products page,6 products are displayed,Medium,Pass
+TC-007,Products,Sort by price low to high,Logged in as standard_user,1. Select Price (low to high),Products ordered by ascending price,Medium,Pass
+TC-008,Products,Sort by name Z to A,Logged in as standard_user,1. Select Name (Z to A),Products ordered Z to A,Low,Pass
+TC-009,Cart,Add one item,Logged in as standard_user,1. Click Add to cart on first product,Cart badge shows 1,High,Pass
+TC-010,Cart,Remove item from cart,One item in cart,1. Open cart 2. Click Remove,Cart is empty and badge disappears,High,Pass
+TC-011,Checkout,Complete checkout,One item in cart,"1. Open cart 2. Checkout 3. Enter first name, last name, zip 4. Continue 5. Finish",Order confirmation message shown,Critical,Pass
+TC-012,Checkout,Missing first name,On checkout info page,1. Leave first name empty 2. Click Continue,Error: First Name is required,Medium,Pass
+TC-013,Checkout,Order total calculation,Items in cart,1. Reach checkout overview,Item total + tax equals total,High,Pass
+TC-014,Logout,Logout,Logged in,1. Open menu 2. Click Logout,Returned to login page,Medium,Pass
+TC-015,Products,problem_user product images,Logged in as problem_user,1. Open Products page,Each product shows its own image,Medium,Fail
+TC-016,Cart,problem_user remove item,Logged in as problem_user,1. Add item 2. Click Remove on products page,Item removed and button reverts to Add to cart,Medium,Fail
