@@ -1,0 +1,200 @@
+{
+  "total": 64,
+  "pass": 45,
+  "fail": 15,
+  "notRun": 4,
+  "executed": 60,
+  "passRate": 75,
+  "executionRate": 93.8,
+  "defects": 11,
+  "bySeverity": [
+    [
+      "Critical",
+      3
+    ],
+    [
+      "Major",
+      6
+    ],
+    [
+      "Minor",
+      2
+    ]
+  ],
+  "byKind": [
+    [
+      "Genuine",
+      3
+    ],
+    [
+      "Seeded",
+      8
+    ]
+  ],
+  "byModule": {
+    "Login": {
+      "total": 14,
+      "pass": 14,
+      "fail": 0,
+      "notRun": 0
+    },
+    "Session": {
+      "total": 4,
+      "pass": 4,
+      "fail": 0,
+      "notRun": 0
+    },
+    "Products": {
+      "total": 5,
+      "pass": 3,
+      "fail": 2,
+      "notRun": 0
+    },
+    "Sorting": {
+      "total": 6,
+      "pass": 4,
+      "fail": 2,
+      "notRun": 0
+    },
+    "Cart": {
+      "total": 8,
+      "pass": 4,
+      "fail": 4,
+      "notRun": 0
+    },
+    "Checkout": {
+      "total": 10,
+      "pass": 4,
+      "fail": 6,
+      "notRun": 0
+    },
+    "Order": {
+      "total": 6,
+      "pass": 6,
+      "fail": 0,
+      "notRun": 0
+    },
+    "Navigation": {
+      "total": 2,
+      "pass": 2,
+      "fail": 0,
+      "notRun": 0
+    },
+    "UI": {
+      "total": 3,
+      "pass": 2,
+      "fail": 1,
+      "notRun": 0
+    },
+    "Accessibility": {
+      "total": 2,
+      "pass": 1,
+      "fail": 0,
+      "notRun": 1
+    },
+    "Compatibility": {
+      "total": 4,
+      "pass": 1,
+      "fail": 0,
+      "notRun": 3
+    }
+  },
+  "reqCoverage": [
+    [
+      "REQ-01",
+      "Authentication",
+      13,
+      13,
+      0,
+      0
+    ],
+    [
+      "REQ-02",
+      "Session & access control",
+      4,
+      4,
+      0,
+      0
+    ],
+    [
+      "REQ-03",
+      "Product catalogue",
+      4,
+      2,
+      2,
+      0
+    ],
+    [
+      "REQ-04",
+      "Sorting",
+      6,
+      4,
+      2,
+      0
+    ],
+    [
+      "REQ-05",
+      "Shopping cart",
+      8,
+      4,
+      4,
+      0
+    ],
+    [
+      "REQ-06",
+      "Checkout information",
+      8,
+      3,
+      5,
+      0
+    ],
+    [
+      "REQ-07",
+      "Order calculation",
+      3,
+      3,
+      0,
+      0
+    ],
+    [
+      "REQ-08",
+      "Order completion",
+      3,
+      2,
+      1,
+      0
+    ],
+    [
+      "REQ-09",
+      "Navigation",
+      4,
+      4,
+      0,
+      0
+    ],
+    [
+      "REQ-10",
+      "Responsive UI",
+      3,
+      2,
+      1,
+      0
+    ],
+    [
+      "REQ-11",
+      "Accessibility",
+      4,
+      3,
+      0,
+      1
+    ],
+    [
+      "REQ-12",
+      "Browser compatibility",
+      4,
+      1,
+      0,
+      3
+    ]
+  ]
+}

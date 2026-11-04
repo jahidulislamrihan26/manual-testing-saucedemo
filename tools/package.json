@@ -1,0 +1,1 @@
+﻿{"name":"manual-testing-tools","version":"1.0.0","private":true,"scripts":{"build":"node build-suite.js"},"dependencies":{"exceljs":"^4.4.0"}}
