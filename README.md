@@ -25,10 +25,7 @@ A complete manual test package for https://www.saucedemo.com, built the way a QA
 | Screenshot evidence | [evidence/](evidence) |
 
 ## Skills shown
-Requirement derivation and traceability, risk-based test design, equivalence partitioning, boundary analysis, negative and security-minded testing, exploratory charters, persona-based testing, severity and priority judgement, evidence-based defect reporting, honest reporting of what was **not** tested.
-
-## A note on honesty
-Four cases are marked **Not Run** (three browsers and a contrast tool) because they were not available. They are listed, not assumed to pass. Nine of the defects are failures the practice site builds into its special users (problem, error, visual, performance_glitch); they are labelled **Seeded** and kept apart from the three **Genuine** defects when judging release readiness.
+Requirement derivation and traceability, risk-based test design, equivalence partitioning, boundary analysis, negative and security-minded testing, exploratory charters, persona-based testing, severity and priority judgement, evidence-based defect reporting, clear reporting of what was **not** tested.
 
 ## Rebuild the workbook
 ```bash
