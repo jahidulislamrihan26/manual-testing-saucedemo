@@ -37,7 +37,7 @@ fs.writeFileSync(path.join(SUITE, 'metrics.json'), JSON.stringify(m, null, 2));
 
 // ---------- CSV
 const csvCell = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
-const csv = (rows) => '﻿' + rows.map((r) => r.map(csvCell).join(',')).join('\r\n') + '\r\n';
+const csv = (rows) => '﻿' + rows.map((r) => r.map(csvCell).join(',')).join('\n') + '\n';
 const tcHead = ['ID', 'Requirement', 'Module', 'Title', 'Type', 'Priority', 'Preconditions', 'Test Data', 'Steps', 'Expected Result', 'Actual Result', 'Status', 'Defect', 'Evidence'];
 fs.writeFileSync(path.join(SUITE, 'test-cases.csv'), csv([tcHead, ...cases.map((c) => [c.id, c.req, c.module, c.title, c.type, c.priority, c.pre, c.data, c.steps.replace(/\n/g, ' '), c.expected, c.actual, c.status, c.defect, c.evidence])]));
 const dHead = ['ID', 'Title', 'Severity', 'Priority', 'Module', 'Origin', 'Status', 'Failed Test Cases', 'Evidence'];

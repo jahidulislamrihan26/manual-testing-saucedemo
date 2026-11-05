@@ -1,1 +1,13 @@
-﻿{"name":"manual-testing-tools","version":"1.0.0","private":true,"scripts":{"build":"node build-suite.js"},"dependencies":{"exceljs":"^4.4.0"}}
+﻿{
+  "name": "manual-testing-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Builds the Excel workbook, CSV files and defect pages for the manual test suite",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node build-suite.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}

@@ -32,8 +32,10 @@ Swag Labs web application at https://www.saucedemo.com. No build number is expos
 
 Checkout data: `Test / User / 12345`. Boundary data: 3 spaces, 300 x "A", `-1`, `abc!@#`, `<script>alert(1)</script>`, `' OR 1=1 --`.
 
-## 4. Schedule and effort
-| Activity | Planned effort |
+## 4. Schedule and effort (planning estimate)
+These are estimates for a tester starting this scope from scratch. They are **not** hours actually logged.
+
+| Activity | Estimated effort |
 |---|---|
 | Analysis and requirement derivation | 1 hour |
 | Test case design | 3 hours |
@@ -58,7 +60,7 @@ Checkout data: `Test / User / 12345`. Boundary data: 3 spaces, 300 x "A", `-1`, 
 ## 7. Suspension and resumption
 Testing stops if the site is unreachable or login fails for standard_user; it resumes when standard_user can log in again.
 
-## 8. Approvals
+## 8. Sign-off (left blank for the client to complete)
 | Role | Name | Date |
 |---|---|---|
 | Test lead | | |
