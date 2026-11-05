@@ -135,7 +135,7 @@ Every requirement has test cases (no gaps). Details in the workbook, sheet "Trac
 3. **Add validation (BUG-002):** postal code format, trimmed whitespace, length limits, output encoding.
 4. **Fix focus visibility (BUG-016):** add a clear `:focus-visible` style to buttons, links and the sort menu.
 5. **Add security headers (BUG-018)** and helpful error pages (BUG-019).
-6. Re-run the failed cases after fixes. The UI and API automation projects already hold regression tests for the main checks.
+6. Re-run the failed cases after fixes. The [UI automation](https://github.com/jahidulislamrihan26/playwright-ui-automation-pom) and [API testing](https://github.com/jahidulislamrihan26/api-testing-newman-openapi) repositories already hold regression tests for the main checks.
 7. Run a screen-reader pass and test Safari on a real Apple device before sign-off.
 
 ## 9. How the evidence was produced

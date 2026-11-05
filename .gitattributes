@@ -2,3 +2,6 @@
 *.png binary
 *.xlsx binary
 *.webm binary
+
+# The build scripts are tooling, not the subject of this repository; keep them out of the language bar
+tools/** linguist-vendored

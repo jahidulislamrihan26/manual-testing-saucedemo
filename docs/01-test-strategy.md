@@ -26,7 +26,7 @@ The site has no written specification, so requirements were derived from observe
 ## 3. Scope
 **In scope:** login and logout, session protection, product list and detail, sorting, cart, three-step checkout, order calculation, menu and footer links, desktop and mobile widths, basic accessibility, basic input-security checks.
 
-**Out of scope:** load and stress testing (covered in the separate `performance-testing` project), automated regression (the `automation-testing` project), real payments (none exist), penetration testing, localisation.
+**Out of scope:** load and stress testing (covered in the separate [k6-performance-testing](https://github.com/jahidulislamrihan26/k6-performance-testing) repository), automated regression (the [playwright-ui-automation-pom](https://github.com/jahidulislamrihan26/playwright-ui-automation-pom) repository), real payments (none exist), penetration testing, localisation.
 
 ## 4. Risk-based prioritisation
 Priority comes from impact on revenue multiplied by likelihood of failure.
