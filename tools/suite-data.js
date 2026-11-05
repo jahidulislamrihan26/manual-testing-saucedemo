@@ -16,6 +16,8 @@ const requirements = [
   ['REQ-10', 'Responsive UI', 'Layout is usable on desktop and mobile widths with no visual defects.', 'Medium'],
   ['REQ-11', 'Accessibility', 'Basic accessibility: titles, language, alt text, keyboard operation.', 'Medium'],
   ['REQ-12', 'Browser compatibility', 'Works on current Chrome, Firefox, Edge and Safari.', 'Medium'],
+  ['REQ-13', 'Security hardening', 'Sessions cannot be forged, cookies are protected, traffic uses HTTPS, standard security headers are sent.', 'Critical'],
+  ['REQ-14', 'URL handling and navigation state', 'Typing a URL or using the Back button never shows a false confirmation, never repeats an order, and unknown pages explain themselves.', 'High'],
 ];
 
 const USERS = {
@@ -102,11 +104,33 @@ const cases = [
   T('TC-057', 'REQ-10', 'UI', 'Mobile layout 375x667 has no horizontal scroll', 'UI', 'Medium', 'Logged in', USERS.std, '1. Open Products at 375x667', 'Single column; no horizontal scroll', 'Single column; no horizontal scroll', 'Pass', '', 'mobile-products.png'),
   T('TC-058', 'REQ-10', 'UI', 'visual_user layout is aligned', 'UI', 'Medium', 'Logged in', USERS.vis, '1. Open Products page', 'Header, cart icon and titles aligned like standard_user', 'Cart icon misplaced, product titles shifted, Fleece Jacket image cropped, Backpack image differs', 'Fail', 'BUG-011', 'visual-user-products.png'),
   T('TC-059', 'REQ-11', 'Accessibility', 'Page has title and language', 'Accessibility', 'Medium', 'Any page', 'n/a', '1. Check <title> and <html lang>', 'Both present', 'Title "Swag Labs", lang "en" (title is identical on every page)', 'Pass'),
-  T('TC-060', 'REQ-11', 'Accessibility', 'Colour contrast meets WCAG AA', 'Accessibility', 'Medium', 'Any page', 'n/a', '1. Run a contrast analyser on key pages', 'All text >= 4.5:1', 'Not run: needs an analyser tool (see summary report)', 'Not Run'),
+  T('TC-060', 'REQ-11', 'Accessibility', 'WCAG A/AA scan incl. colour contrast on all main pages', 'Accessibility', 'Medium', 'Logged in', 'axe-core, rules wcag2a, wcag2aa, wcag21a, wcag21aa', '1. Scan login, products, product detail, cart, checkout step 1, step 2 and complete pages', 'No violations; all text meets 4.5:1 contrast', '0 violations on all 7 pages, colour-contrast included. A manual screen-reader check was not done.', 'Pass'),
   T('TC-061', 'REQ-12', 'Compatibility', 'Chrome latest', 'Compatibility', 'High', 'n/a', 'Chrome (Chromium)', '1. Run the full suite', 'All core flows work', 'All core flows work (defects listed separately)', 'Pass'),
-  T('TC-062', 'REQ-12', 'Compatibility', 'Firefox latest', 'Compatibility', 'Medium', 'n/a', 'Firefox', '1. Run smoke subset TC-001, 030, 051', 'Same result as Chrome', 'Not run: Firefox not available in this session', 'Not Run'),
-  T('TC-063', 'REQ-12', 'Compatibility', 'Edge latest', 'Compatibility', 'Medium', 'n/a', 'Edge', '1. Run smoke subset TC-001, 030, 051', 'Same result as Chrome', 'Not run: not available in this session', 'Not Run'),
-  T('TC-064', 'REQ-12', 'Compatibility', 'Safari / WebKit latest', 'Compatibility', 'Low', 'n/a', 'Safari', '1. Run smoke subset TC-001, 030, 051', 'Same result as Chrome', 'Not run: needs a Mac or WebKit build', 'Not Run'),
+  T('TC-062', 'REQ-12', 'Compatibility', 'Firefox latest', 'Compatibility', 'Medium', 'n/a', 'Firefox (Playwright build)', '1. Run smoke subset TC-001, 030, 051', 'Same result as Chrome', 'All 69 automated UI tests passed on Firefox in CI run 41989789403, covering login, cart and the full purchase. Verified by automation, not by hand.', 'Pass'),
+  T('TC-063', 'REQ-12', 'Compatibility', 'Edge latest', 'Compatibility', 'Medium', 'n/a', 'Microsoft Edge 156.0.4314.58 (installed browser)', '1. Run smoke subset TC-001, 030, 051 in Edge', 'Same result as Chrome', 'In real Edge 156: login, 6 products shown, add to cart (badge 1), checkout and "Thank you for your order!" all worked.', 'Pass', '', 'edge-order-complete.png'),
+  T('TC-064', 'REQ-12', 'Compatibility', 'Safari engine (WebKit) latest', 'Compatibility', 'Low', 'n/a', 'WebKit (Playwright build)', '1. Run smoke subset TC-001, 030, 051', 'Same result as Chrome', 'All 69 automated UI tests passed on WebKit in CI run 41989789403. This is the Safari engine; Safari on macOS and iOS itself was not available.', 'Pass'),
+  // ---- Added in the second review: security, URL handling, keyboard, edge cases
+  T('TC-065', 'REQ-13', 'Security', 'Session cannot be forged by setting a cookie', 'Security', 'Critical', 'Not logged in', 'cookie session-username=standard_user', '1. In a fresh browser add the cookie session-username=standard_user for www.saucedemo.com\n2. Open /inventory.html', 'Redirected to the login page', 'Shop opened as standard_user with no password. The same cookie with problem_user also worked; only locked_out_user was turned away.', 'Fail', 'BUG-013', 'forged-cookie-access.png'),
+  T('TC-066', 'REQ-13', 'Security', 'Session cookie is HttpOnly and Secure', 'Security', 'High', 'Logged in', USERS.std, '1. Log in\n2. Inspect the session-username cookie', 'HttpOnly and Secure are set; value is not a readable username', 'Value is the plain username; HttpOnly false, Secure false, SameSite Lax', 'Fail', 'BUG-013', ''),
+  T('TC-067', 'REQ-13', 'Security', 'Session cookie has a limited lifetime', 'Security', 'Medium', 'Logged in', USERS.std, '1. Log in\n2. Read the cookie expiry', 'Cookie expires after a limited time', 'Expires after about 10 minutes (expiry itself was not waited out)', 'Pass'),
+  T('TC-068', 'REQ-13', 'Security', 'Plain HTTP is redirected to HTTPS', 'Security', 'High', 'n/a', 'http://www.saucedemo.com/', '1. Request the HTTP address without following redirects', '301 or 308 redirect to https://', '301 redirect to https://www.saucedemo.com/', 'Pass'),
+  T('TC-069', 'REQ-13', 'Security', 'Standard security headers are sent', 'Security', 'Medium', 'n/a', 'curl -I https://www.saucedemo.com/', '1. Read response headers', 'Strict-Transport-Security, Content-Security-Policy, X-Content-Type-Options, frame protection and Referrer-Policy present', 'Only Server and Cache-Control present; none of the five security headers', 'Fail', 'BUG-018', ''),
+  T('TC-070', 'REQ-13', 'Security', 'Script text in a product URL is not executed', 'Security', 'High', 'Logged in', '/inventory-item.html?id=<script>alert(1)</script>', '1. Open the address with script text in the id parameter', 'Script does not run; safe error state', 'No script ran; "ITEM NOT FOUND" page shown', 'Pass'),
+  T('TC-071', 'REQ-14', 'URL handling', 'Invalid product ids do not crash or reveal data', 'Negative', 'Medium', 'Logged in', 'ids 999, abc, -1, and no id', '1. Open /inventory-item.html with each id', 'A not-found state, no crash', '"ITEM NOT FOUND" page for all four, page still usable', 'Pass', '', 'detail-invalid-id.png'),
+  T('TC-072', 'REQ-14', 'URL handling', 'Not-found pages give a clear, helpful message', 'Usability', 'Low', 'Logged in', '/nonexistent-page.html and ?id=999', '1. Open an unknown address\n2. Open a product with an unknown id', 'Plain-language message and a way back', 'Unknown address returns a blank page (HTTP 404, no text). The product not-found page uses telephone wording: "your call could not be completed as dialled. Please check your number".', 'Fail', 'BUG-019', 'detail-invalid-id.png'),
+  T('TC-073', 'REQ-14', 'URL handling', 'Order confirmation cannot be opened without an order', 'Negative', 'High', 'Logged in, empty cart, no order placed', '/checkout-complete.html', '1. Open /checkout-complete.html directly', 'Redirect to the cart or products page', 'Page says "Thank you for your order! Your order has been dispatched" although no order was placed', 'Fail', 'BUG-014', 'direct-complete-no-order.png'),
+  T('TC-074', 'REQ-14', 'URL handling', 'Checkout overview cannot be opened directly with an empty cart', 'Negative', 'High', 'Logged in, empty cart', '/checkout-step-two.html', '1. Open /checkout-step-two.html directly', 'Redirect to the cart', 'Overview opens with Total $0.00 and a working Finish button', 'Fail', 'BUG-015', 'direct-step2-empty-cart.png'),
+  T('TC-075', 'REQ-14', 'URL handling', 'Back button after an order does not allow submitting it again', 'Negative', 'High', 'Order just placed', USERS.std, '1. Place an order\n2. Click the browser Back button\n3. Click Finish', 'Overview not shown again, or Finish does nothing', 'Overview page returns with Total $0.00; Finish shows the confirmation again', 'Fail', 'BUG-015', 'back-after-order.png'),
+  T('TC-076', 'REQ-05', 'Cart', 'All six products can be added', 'Boundary', 'Medium', 'Logged in', USERS.std, '1. Click Add to cart on every product', 'Badge shows 6', 'Badge showed 6', 'Pass'),
+  T('TC-077', 'REQ-07', 'Order', 'Totals are correct for all six products', 'Functional', 'High', 'All six products in cart', USERS.std, '1. Go to the checkout overview', 'Item total $129.94, tax $10.40 (10.3952 rounded), total $140.34', 'Item total $129.94, tax $10.40, total $140.34', 'Pass'),
+  T('TC-078', 'REQ-05', 'Cart', 'Double-click on Add to cart leaves the cart consistent', 'Boundary', 'Low', 'Logged in', USERS.std, '1. Double-click Add to cart on Backpack', 'Cart and button agree (second click is a Remove)', 'Item added then removed; badge gone and button back to Add to cart: consistent', 'Pass'),
+  T('TC-079', 'REQ-05', 'Cart', 'Adding from a product page is reflected in the list', 'Functional', 'Medium', 'Logged in', USERS.std, '1. Open Bike Light\n2. Click Add to cart\n3. Click Back to products', 'Badge 1 and the list button shows Remove', 'Badge 1; Bike Light button showed Remove', 'Pass'),
+  T('TC-080', 'REQ-04', 'Sorting', 'Sort choice is kept after viewing a product', 'Usability', 'Low', 'Logged in', USERS.std, '1. Sort by Price (high to low)\n2. Open a product\n3. Click Back to products', 'Still sorted high to low', 'Sort reset to Name (A to Z)', 'Fail', 'BUG-017', ''),
+  T('TC-081', 'REQ-11', 'Accessibility', 'Tab order on the products page is logical', 'Accessibility', 'Medium', 'Logged in', USERS.std, '1. Press Tab repeatedly from page load', 'Menu, sort, then image link, name link and Add button of each product in order', 'Order matched exactly', 'Pass'),
+  T('TC-082', 'REQ-11', 'Accessibility', 'Add to cart works with the Enter key', 'Accessibility', 'Medium', 'Logged in', USERS.std, '1. Focus the Add to cart button of Onesie\n2. Press Enter', 'Item added', 'Item added; button became Remove', 'Pass'),
+  T('TC-083', 'REQ-11', 'Accessibility', 'Escape closes the side menu', 'Accessibility', 'Low', 'Logged in', USERS.std, '1. Open the menu\n2. Press Escape', 'Menu closes', 'Menu closed', 'Pass'),
+  T('TC-084', 'REQ-11', 'Accessibility', 'Keyboard focus is clearly visible', 'Accessibility', 'High', 'Logged in', USERS.std, '1. Press Tab until the Add to cart button is focused\n2. Look at the button', 'A visible focus indicator (WCAG 2.4.7)', 'Focused button looks the same as an unfocused one: outline none, no shadow, no colour change', 'Fail', 'BUG-016', 'keyboard-focus.png'),
+  T('TC-085', 'REQ-10', 'UI', 'Layout at 320 and 480 px wide', 'UI', 'Medium', 'Logged in', USERS.std, '1. Open Products at 320x640\n2. Repeat at 480x640', 'No horizontal scroll', 'No horizontal scroll at either width', 'Pass', '', 'width-320.png'),
 ];
 
 // Defects
@@ -144,6 +168,44 @@ const defects = [
 defects.push(
   D('BUG-012', 'Product list appears about 5 seconds after login for performance_glitch_user', 'Major', 'Medium', 'Login', 'Seeded', USERS.perf,
     '1. Open the login page\n2. Log in as performance_glitch_user\n3. Time from clicking Login until the product list is visible (measured three times)', 'Product list visible within 3 s, like standard_user (about 0.15 s).', 'The address changes immediately but the product list appears after about 5.1 s (measured: 5.13 s, 5.15 s, and a 5.1 s block on the click itself).', 'n/a (timing, see automation test BUG-012)', 'TC-014', SEEDED + ' An earlier timing of this user only watched the address bar and wrongly reported no delay; it was corrected after the automation suite measured when the content actually appears.'),
+);
+
+// Found in the second review (security, URL handling, keyboard use, edge cases). All are Genuine: they happen in the normal
+// standard_user flow. The site is a client-side practice shop, so some are by design of the site; they are logged as if found in a real product.
+const GENUINE_NOTE = 'Logged as if found in a real product. The practice shop has no server behind its login, so this is how it is built, but a real shop with this behaviour would have the stated impact.';
+defects.push(
+  D('BUG-013', 'Login can be bypassed by forging an unsigned session cookie', 'Critical', 'High', 'Security', 'Genuine', 'none (no password needed)',
+    '1. Open a fresh private window on https://www.saucedemo.com (not logged in)\n2. In the browser tools add a cookie for www.saucedemo.com: name session-username, value standard_user, path /\n3. Open https://www.saucedemo.com/inventory.html',
+    'Redirected to the login page. A session must be proven with a password and be an unguessable, signed value, with HttpOnly and Secure set.',
+    'The shop opens as standard_user with no password. The same works for problem_user (and any other username); only locked_out_user is turned away. The cookie holds the plain username, HttpOnly is false, Secure is false, SameSite is Lax, lifetime about 10 minutes.',
+    'forged-cookie-access.png', 'TC-065, TC-066', 'Impact if real: anyone who knows or guesses a username can act as that user, and script on the page can read or steal the cookie. ' + GENUINE_NOTE),
+  D('BUG-014', 'Order confirmation page can be opened without placing an order', 'Major', 'Medium', 'Checkout', 'Genuine', USERS.std,
+    '1. Log in as standard_user with an empty cart\n2. Open https://www.saucedemo.com/checkout-complete.html directly',
+    'Redirected to the cart or products page.', 'The page shows "Thank you for your order! Your order has been dispatched" although no order exists.',
+    'direct-complete-no-order.png', 'TC-073', 'Impact if real: false confirmation screens, wrong support calls and misleading analytics. ' + GENUINE_NOTE),
+  D('BUG-015', 'Checkout overview can be opened with an empty cart and an order can be submitted again with the Back button', 'Major', 'High', 'Checkout', 'Genuine', USERS.std,
+    'A. 1. Log in with an empty cart\n   2. Open https://www.saucedemo.com/checkout-step-two.html directly\nB. 1. Place a normal order\n   2. Click the browser Back button\n   3. Click Finish',
+    'A: redirected to the cart. B: the overview is not shown again, or Finish does nothing.',
+    'A: overview opens with Total $0.00 and a working Finish button. B: the overview returns with Total $0.00 and Finish shows the confirmation again, so a second (empty) order is accepted. Related to BUG-001.',
+    'back-after-order.png', 'TC-074, TC-075', 'Impact if real: empty and duplicate orders. ' + GENUINE_NOTE),
+  D('BUG-016', 'Keyboard focus is not visible on buttons and the sort menu', 'Major', 'Medium', 'Accessibility', 'Genuine', USERS.std,
+    '1. Log in as standard_user\n2. Press Tab until the Add to cart button of Backpack is focused (or the sort menu)\n3. Compare it with an unfocused button',
+    'A clear focus indicator is shown (WCAG 2.1 success criterion 2.4.7, level AA).',
+    'The focused control looks identical to an unfocused one: computed outline-style none, no box-shadow, no colour change. Keyboard users cannot tell where they are. The automated axe scan does not detect this, it was found by testing with the keyboard.',
+    'keyboard-focus.png', 'TC-084', 'Impact if real: the shop is hard or impossible to use for keyboard-only users, which is also a legal risk in many countries. ' + GENUINE_NOTE),
+  D('BUG-017', 'Chosen sort order is lost after viewing a product', 'Minor', 'Low', 'Sorting', 'Genuine', USERS.std,
+    '1. Log in and choose Price (high to low)\n2. Open any product\n3. Click Back to products',
+    'The list is still sorted high to low.', 'The sort resets to Name (A to Z).', 'n/a (visible in the sort menu)', 'TC-080', 'Impact if real: shoppers must re-sort after every product they open. ' + GENUINE_NOTE),
+  D('BUG-018', 'No standard security headers are sent', 'Minor', 'Medium', 'Security', 'Genuine', 'n/a (any request)',
+    '1. Run: curl -I https://www.saucedemo.com/\n2. Read the response headers',
+    'Strict-Transport-Security, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options (or frame-ancestors) and Referrer-Policy are present.',
+    'Only Server (GitHub.com) and Cache-Control are sent; none of the five security headers. Plain HTTP does redirect to HTTPS (301), which is good.',
+    'n/a (response headers)', 'TC-069', 'Impact if real: weaker protection against clickjacking, content sniffing and script injection. The site is on a static host, which may limit what can be set. ' + GENUINE_NOTE),
+  D('BUG-019', 'Unknown addresses show a blank page and the product not-found page uses telephone wording', 'Minor', 'Low', 'Navigation', 'Genuine', USERS.std,
+    '1. Open https://www.saucedemo.com/nonexistent-page.html\n2. Open https://www.saucedemo.com/inventory-item.html?id=999',
+    'A plain-language "page not found" message with a link back to the shop.',
+    '1: a blank page (HTTP 404, no text). 2: "ITEM NOT FOUND - We\'re sorry, but your call could not be completed as dialled. Please check your number, and try your call again." (wording for a phone line, not a web shop).',
+    'detail-invalid-id.png', 'TC-072', 'Impact if real: confusing dead ends for shoppers. ' + GENUINE_NOTE),
 );
 
 module.exports = { EXEC_DATE, requirements, cases, defects };

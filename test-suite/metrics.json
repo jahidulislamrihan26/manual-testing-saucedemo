@@ -1,30 +1,30 @@
 {
-  "total": 64,
-  "pass": 44,
-  "fail": 16,
-  "notRun": 4,
-  "executed": 60,
-  "passRate": 73.3,
-  "executionRate": 93.8,
-  "defects": 12,
+  "total": 85,
+  "pass": 60,
+  "fail": 25,
+  "notRun": 0,
+  "executed": 85,
+  "passRate": 70.6,
+  "executionRate": 100,
+  "defects": 19,
   "bySeverity": [
     [
       "Critical",
-      3
+      4
     ],
     [
       "Major",
-      7
+      10
     ],
     [
       "Minor",
-      2
+      5
     ]
   ],
   "byKind": [
     [
       "Genuine",
-      3
+      10
     ],
     [
       "Seeded",
@@ -51,14 +51,14 @@
       "notRun": 0
     },
     "Sorting": {
-      "total": 6,
+      "total": 7,
       "pass": 4,
-      "fail": 2,
+      "fail": 3,
       "notRun": 0
     },
     "Cart": {
-      "total": 8,
-      "pass": 4,
+      "total": 11,
+      "pass": 7,
       "fail": 4,
       "notRun": 0
     },
@@ -69,8 +69,8 @@
       "notRun": 0
     },
     "Order": {
-      "total": 6,
-      "pass": 6,
+      "total": 7,
+      "pass": 7,
       "fail": 0,
       "notRun": 0
     },
@@ -81,22 +81,34 @@
       "notRun": 0
     },
     "UI": {
-      "total": 3,
-      "pass": 2,
+      "total": 4,
+      "pass": 3,
       "fail": 1,
       "notRun": 0
     },
     "Accessibility": {
-      "total": 2,
-      "pass": 1,
-      "fail": 0,
-      "notRun": 1
+      "total": 6,
+      "pass": 5,
+      "fail": 1,
+      "notRun": 0
     },
     "Compatibility": {
       "total": 4,
-      "pass": 1,
+      "pass": 4,
       "fail": 0,
-      "notRun": 3
+      "notRun": 0
+    },
+    "Security": {
+      "total": 6,
+      "pass": 3,
+      "fail": 3,
+      "notRun": 0
+    },
+    "URL handling": {
+      "total": 5,
+      "pass": 1,
+      "fail": 4,
+      "notRun": 0
     }
   },
   "reqCoverage": [
@@ -127,16 +139,16 @@
     [
       "REQ-04",
       "Sorting",
-      6,
+      7,
       4,
-      2,
+      3,
       0
     ],
     [
       "REQ-05",
       "Shopping cart",
-      8,
-      4,
+      11,
+      7,
       4,
       0
     ],
@@ -151,8 +163,8 @@
     [
       "REQ-07",
       "Order calculation",
-      3,
-      3,
+      4,
+      4,
       0,
       0
     ],
@@ -175,26 +187,42 @@
     [
       "REQ-10",
       "Responsive UI",
+      4,
       3,
-      2,
       1,
       0
     ],
     [
       "REQ-11",
       "Accessibility",
-      4,
-      3,
-      0,
-      1
+      8,
+      7,
+      1,
+      0
     ],
     [
       "REQ-12",
       "Browser compatibility",
       4,
-      1,
+      4,
       0,
-      3
+      0
+    ],
+    [
+      "REQ-13",
+      "Security hardening",
+      6,
+      3,
+      3,
+      0
+    ],
+    [
+      "REQ-14",
+      "URL handling and navigation state",
+      5,
+      1,
+      4,
+      0
     ]
   ]
 }

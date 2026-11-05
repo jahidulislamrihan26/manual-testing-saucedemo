@@ -35,12 +35,14 @@ Priority comes from impact on revenue multiplied by likelihood of failure.
 |---|---|---|---|---|
 | Customer cannot complete an order | Very high | Medium | **Critical** | TC-038 to TC-052 |
 | Wrong totals or prices charged | Very high | Low | **High** | TC-023, TC-048 to TC-050 |
-| Unauthorised access to pages | High | Low | **High** | TC-015, TC-016 |
+| Unauthorised access to pages or accounts | Very high | Medium | **Critical** | TC-015, TC-016, TC-065 to TC-070 |
+| False confirmations and repeat orders through URLs or Back | High | Medium | **High** | TC-071 to TC-075 |
+| Keyboard-only users locked out | High | Medium | **High** | TC-081 to TC-084 |
 | Cart state wrong or lost | High | Medium | **High** | TC-030 to TC-037 |
 | Login failures lock customers out | High | Low | **High** | TC-001 to TC-014 |
 | Bad data accepted at checkout | Medium | High | **High** | TC-042 to TC-044 |
 | Layout or sorting problems | Medium | Medium | Medium | TC-024 to TC-029, TC-056 to TC-058 |
-| Browser-specific issues | Medium | Medium | Medium | TC-061 to TC-064 |
+| Browser-specific issues | Medium | Medium | Medium | TC-060 to TC-064 |
 
 ## 5. Test levels and entry/exit criteria
 - **Entry:** site reachable, six test users available, test environment documented.
@@ -56,15 +58,15 @@ Priority comes from impact on revenue multiplied by likelihood of failure.
 ## 7. Test environment
 | Item | Value |
 |---|---|
-| Browser | Chrome (Chromium), latest at execution date |
-| Viewports | 1366x768 desktop, 375x667 mobile |
+| Browsers | Chrome (Chromium), real Microsoft Edge 156; Firefox and WebKit through the automated suite in CI |
+| Viewports | 1366x768 desktop; 375x667, 480x640 and 320x640 narrow screens |
 | Network | Normal broadband |
 | Test data | See [02-test-plan.md](02-test-plan.md) |
 
 ## 8. Deliverables
-Test strategy, test plan, 64 test cases with traceability matrix, defect log and 12 defect reports with evidence, exploratory charters, checklists, test summary report.
+Test strategy, test plan, 85 test cases with traceability matrix, defect log and 19 defect reports with evidence, exploratory charters, checklists, test summary report.
 
 ## 9. Assumptions and constraints
 - Public demo site may change; results are valid for 2026-11-05.
-- Only Chrome was available in the execution session; Firefox, Edge and Safari cases are listed and marked **Not Run** rather than assumed to pass.
-- No assistive technology (screen reader) or contrast tool was used.
+- Chrome and Edge were exercised directly. Firefox and WebKit were not installed here, so those cases are passed on the evidence of the automated suite in CI and say so. Safari on macOS and iOS was not available.
+- Accessibility used an automated scanner (axe-core, including colour contrast) and keyboard testing. No screen reader was used.
