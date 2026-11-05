@@ -1,4 +1,6 @@
-# Manual Testing Project: Sauce Demo E-commerce
+# Manual Testing: Sauce Demo E-commerce
+
+[![CI](https://github.com/jahidulislamrihan26/manual-testing-saucedemo/actions/workflows/ci.yml/badge.svg)](https://github.com/jahidulislamrihan26/manual-testing-saucedemo/actions/workflows/ci.yml) Part of the [SQA portfolio](https://github.com/jahidulislamrihan26/sqa-portfolio).
 
 A complete manual test package for https://www.saucedemo.com, built the way a QA team would hand it to a client.
 
@@ -35,3 +37,8 @@ npm install
 npm run build
 ```
 Edit `tools/suite-data.js` to change cases, defects or results; the workbook, CSVs, defect pages and metrics regenerate.
+
+## Related projects
+- [playwright-ui-automation-pom](https://github.com/jahidulislamrihan26/playwright-ui-automation-pom): automates 82 of these 87 cases and captures all 20 defects as expected-failure tests (see its traceability table).
+- [qa-templates](https://github.com/jahidulislamrihan26/qa-templates): the blank versions of the documents in this package (test plan, test case, bug report, summary report).
+- [api-testing-newman-openapi](https://github.com/jahidulislamrihan26/api-testing-newman-openapi) and [k6-performance-testing](https://github.com/jahidulislamrihan26/k6-performance-testing): API and performance testing projects.
