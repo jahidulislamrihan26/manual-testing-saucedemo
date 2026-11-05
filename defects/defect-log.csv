@@ -18,3 +18,4 @@
 "BUG-017","Chosen sort order is lost after viewing a product","Minor","Low","Sorting","Genuine","Open","TC-080","n/a (visible in the sort menu)"
 "BUG-018","No standard security headers are sent","Minor","Medium","Security","Genuine","Open","TC-069","n/a (response headers)"
 "BUG-019","Unknown addresses show a blank page and the product not-found page uses telephone wording","Minor","Low","Navigation","Genuine","Open","TC-072","detail-invalid-id.png"
+"BUG-020","The cart cannot be reached or opened with the keyboard","Critical","High","Accessibility","Genuine","Open","TC-086, TC-087","n/a (keyboard behaviour)"

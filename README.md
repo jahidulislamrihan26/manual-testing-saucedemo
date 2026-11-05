@@ -5,10 +5,10 @@ A complete manual test package for https://www.saucedemo.com, built the way a QA
 ## Result in one look
 | | |
 |---|---|
-| Test cases | **85** across 14 requirements, all traced, all executed |
-| Results | 60 pass, 25 fail (70.6%) |
-| Defects | **19** with steps and evidence (10 genuine, 9 seeded by the site's test users) |
-| Key findings | Login can be bypassed with a forged cookie (Critical); checkout accepts empty carts, false confirmations and repeat orders; keyboard focus is invisible |
+| Test cases | **87** across 14 requirements, all traced, all executed |
+| Results | 60 pass, 27 fail (69.0%) |
+| Defects | **20** with steps and evidence (11 genuine, 9 seeded by the site's test users) |
+| Key findings | Login can be bypassed with a forged cookie (Critical); the cart cannot be opened with the keyboard (Critical); checkout accepts empty carts, false confirmations and repeat orders; keyboard focus is invisible |
 | Recommendation | **Not ready for release** as a real shop (exit rule not met) |
 | Also verified | Real Edge 156, automated accessibility scan of 7 pages (clean), HTTP to HTTPS redirect, 320 px layout |
 

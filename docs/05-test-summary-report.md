@@ -10,41 +10,41 @@
 ## 1. Executive summary
 **Recommendation: not ready for release as a real shop.** The normal shopping path works: login, sorting, cart, correct totals (item total plus 8% tax, checked by hand for 2 and 6 products and in the automated suite for 3) and order completion pass in Chrome, real Edge, and through automation in Firefox and WebKit. An automated accessibility scan of all 7 pages found no violations, including colour contrast. HTTP is redirected to HTTPS.
 
-But three problems block a release:
+But these problems block a release:
 1. **Login can be bypassed.** The session is an unsigned cookie that holds the plain username. Setting `session-username=standard_user` in a fresh browser opens the shop with no password (BUG-013, Critical).
-2. **Checkout integrity is broken.** An empty cart can be checked out (BUG-001), the "Thank you for your order!" page can be opened without an order (BUG-014), and the Back button lets an order be submitted again (BUG-015).
-3. **Keyboard users cannot see where they are.** No visible focus indicator (BUG-016, a WCAG AA failure).
+2. **Keyboard users cannot buy anything.** The cart icon cannot be reached with Tab and does nothing on Enter or Space, so a shopper without a mouse cannot open the cart or check out (BUG-020, Critical, WCAG 2.1.1 level A). Focus is also invisible on every control (BUG-016, WCAG AA).
+3. **Checkout integrity is broken.** An empty cart can be checked out (BUG-001), the "Thank you for your order!" page can be opened without an order (BUG-014), and the Back button lets an order be submitted again (BUG-015).
 
-The first round of testing missed the login bypass, the false confirmation and the focus problem; the second round found them by going beyond the happy path. Nine more defects appear only for the site's special test users (problem, error, visual, performance_glitch); they are reported to show the full defect process and do not count towards the recommendation.
+The first round of testing missed the login bypass, the false confirmation and the focus problem; the second round found them by going beyond the happy path. The cart keyboard blocker (BUG-020) was missed by both the automated accessibility scan and the first manual keyboard pass, and was found while writing the automated keyboard test. Nine more defects appear only for the site's special test users (problem, error, visual, performance_glitch); they are reported to show the full defect process and do not count towards the recommendation.
 
-**Exit rule from the strategy** (no open Critical genuine defect, at most two Major): **not met** (1 Critical and 5 Major genuine defects).
+**Exit rule from the strategy** (no open Critical genuine defect, at most two Major): **not met** (2 Critical and 5 Major genuine defects).
 
 ## 2. Results at a glance
 | Measure | Value |
 |---|---|
-| Test cases designed and executed | 85 (100%) |
+| Test cases designed and executed | 87 (100%) |
 | Passed | 60 |
-| Failed | 25 |
+| Failed | 27 |
 | Not run | 0 |
-| Pass rate | 70.6% |
-| Defects raised | 19 (10 Genuine, 9 Seeded) |
-| Critical / Major / Minor | 4 / 10 / 5 |
-| Genuine defects: Critical / Major / Minor | 1 / 5 / 4 |
+| Pass rate | 69.0% |
+| Defects raised | 20 (11 Genuine, 9 Seeded) |
+| Critical / Major / Minor | 5 / 10 / 5 |
+| Genuine defects: Critical / Major / Minor | 2 / 5 / 4 |
 
 ```mermaid
-pie title Test case results (85 cases)
+pie title Test case results (87 cases)
     "Pass" : 60
-    "Fail" : 25
+    "Fail" : 27
 ```
 
 ```mermaid
-pie title Defects by severity (19)
-    "Critical" : 4
+pie title Defects by severity (20)
+    "Critical" : 5
     "Major" : 10
     "Minor" : 5
 ```
 
-25 failures come from 19 defects: 14 failures are in the standard-user flow and 11 are specific to the special test users.
+27 failures come from 20 defects: 16 failures are in the standard-user flow and 11 are specific to the special test users.
 
 ## 3. Results by module
 | Module | Total | Pass | Fail |
@@ -58,7 +58,7 @@ pie title Defects by severity (19)
 | Order | 7 | 7 | 0 |
 | Navigation | 2 | 2 | 0 |
 | UI | 4 | 3 | 1 |
-| Accessibility | 6 | 5 | 1 |
+| Accessibility | 8 | 5 | 3 |
 | Compatibility | 4 | 4 | 0 |
 | Security | 6 | 3 | 3 |
 | URL handling | 5 | 1 | 4 |
@@ -78,7 +78,7 @@ Every requirement has test cases (no gaps). Details in the workbook, sheet "Trac
 | REQ-08 | Order completion | 3 | 2 | 1 |
 | REQ-09 | Navigation | 4 | 4 | 0 |
 | REQ-10 | Responsive UI | 4 | 3 | 1 |
-| REQ-11 | Accessibility | 8 | 7 | 1 |
+| REQ-11 | Accessibility | 10 | 7 | 3 |
 | REQ-12 | Browser compatibility | 4 | 4 | 0 |
 | REQ-13 | Security hardening | 6 | 3 | 3 |
 | REQ-14 | URL handling and navigation state | 5 | 1 | 4 |
@@ -88,6 +88,7 @@ Every requirement has test cases (no gaps). Details in the workbook, sheet "Trac
 | ID | Title | Severity |
 |---|---|---|
 | [BUG-013](../defects/BUG-013.md) | Login can be bypassed by forging an unsigned session cookie | **Critical** |
+| [BUG-020](../defects/BUG-020.md) | The cart cannot be reached or opened with the keyboard | **Critical** |
 | [BUG-001](../defects/BUG-001.md) | Checkout can be started and completed with an empty cart | Major |
 | [BUG-002](../defects/BUG-002.md) | Checkout form has no validation beyond "required" | Major |
 | [BUG-014](../defects/BUG-014.md) | Order confirmation page can be opened without placing an order | Major |
@@ -122,13 +123,14 @@ Every requirement has test cases (no gaps). Details in the workbook, sheet "Trac
 
 ## 7. Risks and limitations
 1. **Firefox and WebKit were verified by the automated suite, not by hand** (CI run 41989789403). WebKit is Safari's engine, but Safari on macOS and iOS itself was not available.
-2. **Accessibility** was checked with an automated scanner and keyboard testing. No screen reader (NVDA, VoiceOver) was used, so announcements and reading order are untested.
+2. **Accessibility** was checked with an automated scanner and keyboard testing. No screen reader (NVDA, VoiceOver) was used, so announcements and reading order are untested. The automated scan missed the cart keyboard blocker (BUG-020), and so did the first manual keyboard pass: a reminder that scanners and quick checks leave gaps.
 3. **Session expiry** was read from the cookie (about 10 minutes) but not waited out.
 4. **Performance** is covered in the separate performance-testing project. Login timing was measured for two users; a first timing of performance_glitch_user missed its 5-second delay and was corrected (BUG-012).
 5. **The practice site has no server behind login.** Several findings (BUG-013, 014, 015, 018) describe how the site is built, and are written up as they would be for a real shop.
 
 ## 8. Recommendations
 1. **Fix BUG-013 first:** issue a server-side, signed, HttpOnly and Secure session token after a real password check.
+1. **Fix BUG-020 next:** make the cart icon a real link or button (`<a href>` or `<button>`) so it is in the Tab order and works with Enter.
 2. **Protect checkout state (BUG-001, 014, 015):** the server must check that the cart has items before showing the overview, accept an order only once, and show confirmation only for a real order.
 3. **Add validation (BUG-002):** postal code format, trimmed whitespace, length limits, output encoding.
 4. **Fix focus visibility (BUG-016):** add a clear `:focus-visible` style to buttons, links and the sort menu.

@@ -37,7 +37,7 @@ Priority comes from impact on revenue multiplied by likelihood of failure.
 | Wrong totals or prices charged | Very high | Low | **High** | TC-023, TC-048 to TC-050 |
 | Unauthorised access to pages or accounts | Very high | Medium | **Critical** | TC-015, TC-016, TC-065 to TC-070 |
 | False confirmations and repeat orders through URLs or Back | High | Medium | **High** | TC-071 to TC-075 |
-| Keyboard-only users locked out | High | Medium | **High** | TC-081 to TC-084 |
+| Keyboard-only users locked out | Very high | Medium | **Critical** | TC-081 to TC-087 |
 | Cart state wrong or lost | High | Medium | **High** | TC-030 to TC-037 |
 | Login failures lock customers out | High | Low | **High** | TC-001 to TC-014 |
 | Bad data accepted at checkout | Medium | High | **High** | TC-042 to TC-044 |
@@ -64,7 +64,7 @@ Priority comes from impact on revenue multiplied by likelihood of failure.
 | Test data | See [02-test-plan.md](02-test-plan.md) |
 
 ## 8. Deliverables
-Test strategy, test plan, 85 test cases with traceability matrix, defect log and 19 defect reports with evidence, exploratory charters, checklists, test summary report.
+Test strategy, test plan, 87 test cases with traceability matrix, defect log and 20 defect reports with evidence, exploratory charters, checklists, test summary report.
 
 ## 9. Assumptions and constraints
 - Public demo site may change; results are valid for 2026-11-05.

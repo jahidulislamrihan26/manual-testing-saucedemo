@@ -131,6 +131,9 @@ const cases = [
   T('TC-083', 'REQ-11', 'Accessibility', 'Escape closes the side menu', 'Accessibility', 'Low', 'Logged in', USERS.std, '1. Open the menu\n2. Press Escape', 'Menu closes', 'Menu closed', 'Pass'),
   T('TC-084', 'REQ-11', 'Accessibility', 'Keyboard focus is clearly visible', 'Accessibility', 'High', 'Logged in', USERS.std, '1. Press Tab until the Add to cart button is focused\n2. Look at the button', 'A visible focus indicator (WCAG 2.4.7)', 'Focused button looks the same as an unfocused one: outline none, no shadow, no colour change', 'Fail', 'BUG-016', 'keyboard-focus.png'),
   T('TC-085', 'REQ-10', 'UI', 'Layout at 320 and 480 px wide', 'UI', 'Medium', 'Logged in', USERS.std, '1. Open Products at 320x640\n2. Repeat at 480x640', 'No horizontal scroll', 'No horizontal scroll at either width', 'Pass', '', 'width-320.png'),
+  // ---- Added while writing the UI automation suite
+  T('TC-086', 'REQ-11', 'Accessibility', 'The cart can be reached with Tab and opened with Enter', 'Accessibility', 'Critical', 'Logged in, products page', USERS.std, '1. Press Tab repeatedly (up to 40 times) from the top of the products page\n2. When the cart link has focus, press Enter', 'Focus reaches the cart link and Enter opens the cart (WCAG 2.1.1 Keyboard)', 'Tab never reaches the cart link: it is an <a role="button"> without an href. Giving it focus by script and pressing Enter or Space does nothing.', 'Fail', 'BUG-020', ''),
+  T('TC-087', 'REQ-11', 'Accessibility', 'A whole purchase can be completed without a mouse', 'Accessibility', 'Critical', 'Logged in, products page', USERS.std, '1. Add a product, open the cart, check out and finish using only the keyboard', 'Order confirmation page', 'Adding to the cart works with the keyboard, but the cart cannot be opened, so the purchase cannot continue', 'Fail', 'BUG-020', ''),
 ];
 
 // Defects
@@ -206,6 +209,14 @@ defects.push(
     'A plain-language "page not found" message with a link back to the shop.',
     '1: a blank page (HTTP 404, no text). 2: "ITEM NOT FOUND - We\'re sorry, but your call could not be completed as dialled. Please check your number, and try your call again." (wording for a phone line, not a web shop).',
     'detail-invalid-id.png', 'TC-072', 'Impact if real: confusing dead ends for shoppers. ' + GENUINE_NOTE),
+);
+
+defects.push(
+  D('BUG-020', 'The cart cannot be reached or opened with the keyboard', 'Critical', 'High', 'Accessibility', 'Genuine', USERS.std,
+    '1. Log in as standard_user\n2. Press Tab repeatedly from the top of the products page (40 presses are enough to pass every control)\n3. Watch which controls receive focus, then focus the cart icon by script and press Enter or Space',
+    'The cart link receives focus in the Tab order and Enter opens the cart (WCAG 2.1 success criterion 2.1.1 Keyboard, level A).',
+    'Tab goes through the menu, sort, every product link and button, but never reaches the cart icon. It is an <a role="button" data-test="shopping-cart-link"> with no href and no tabindex. Pressing Enter or Space on it (focused by script) does nothing. A keyboard-only shopper cannot open the cart, so cannot check out. The automated axe scan reported no violation for it. Found while writing the automated keyboard test, after the first manual keyboard pass had missed it.',
+    'n/a (keyboard behaviour)', 'TC-086, TC-087', 'Impact if real: shoppers who cannot use a mouse (motor disabilities, screen-reader users) cannot complete any purchase. A blocker for a core flow and a legal risk in many countries. ' + GENUINE_NOTE),
 );
 
 module.exports = { EXEC_DATE, requirements, cases, defects };

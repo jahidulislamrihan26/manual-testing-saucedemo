@@ -96,6 +96,7 @@ Format: **Explore** a target **with** resources **to discover** information. Ses
 | Press Enter on Add to cart | Item added (good) |
 | Press Escape with the menu open | Menu closes (good) |
 | Look at the focused button | No visible change: outline none, no shadow, no colour change. **BUG-016** |
-| Automated axe scan on 7 pages | 0 violations (good), but this scan cannot see the missing focus style |
+| Try to reach the cart icon with Tab (40 presses) | Never receives focus: `<a role="button">` with no `href`. Enter and Space on it do nothing, so checkout is impossible by keyboard. **BUG-020** (Critical). Missed in the first pass of this charter and found when the same check was written as an automated test |
+| Automated axe scan on 7 pages | 0 violations (good), but this scan cannot see the missing focus style or the unreachable cart icon |
 
-**Risks and questions raised:** automated scans alone gave a clean result while a real keyboard problem existed, which is the reason to keep manual keyboard checks in the plan.
+**Risks and questions raised:** automated scans alone gave a clean result while a real keyboard problem existed, which is the reason to keep manual keyboard checks in the plan. A quick manual keyboard pass also missed the worst problem (the cart), so the check should walk the complete purchase, not just the first page.

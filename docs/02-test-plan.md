@@ -17,7 +17,7 @@ Swag Labs web application at https://www.saucedemo.com. No build number is expos
 | Order calculation and completion | REQ-07, REQ-08 | TC-048 to TC-053 |
 | Navigation | REQ-09 | TC-045, TC-053 to TC-055 |
 | Responsive UI | REQ-10 | TC-056 to TC-058, TC-085 |
-| Accessibility | REQ-11 | TC-013, TC-020, TC-059, TC-060, TC-081 to TC-084 |
+| Accessibility | REQ-11 | TC-013, TC-020, TC-059, TC-060, TC-081 to TC-087 |
 | Browser compatibility | REQ-12 | TC-061 to TC-064 |
 | Security hardening | REQ-13 | TC-065 to TC-070 |
 | URL handling and navigation state | REQ-14 | TC-071 to TC-075 |

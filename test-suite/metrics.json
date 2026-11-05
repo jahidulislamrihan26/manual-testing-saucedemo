@@ -1,16 +1,16 @@
 {
-  "total": 85,
+  "total": 87,
   "pass": 60,
-  "fail": 25,
+  "fail": 27,
   "notRun": 0,
-  "executed": 85,
-  "passRate": 70.6,
+  "executed": 87,
+  "passRate": 69,
   "executionRate": 100,
-  "defects": 19,
+  "defects": 20,
   "bySeverity": [
     [
       "Critical",
-      4
+      5
     ],
     [
       "Major",
@@ -24,7 +24,7 @@
   "byKind": [
     [
       "Genuine",
-      10
+      11
     ],
     [
       "Seeded",
@@ -87,9 +87,9 @@
       "notRun": 0
     },
     "Accessibility": {
-      "total": 6,
+      "total": 8,
       "pass": 5,
-      "fail": 1,
+      "fail": 3,
       "notRun": 0
     },
     "Compatibility": {
@@ -195,9 +195,9 @@
     [
       "REQ-11",
       "Accessibility",
-      8,
+      10,
       7,
-      1,
+      3,
       0
     ],
     [

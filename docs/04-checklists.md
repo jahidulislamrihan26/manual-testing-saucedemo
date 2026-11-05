@@ -16,7 +16,8 @@ Legend: ✅ checked and OK, ❌ checked and failed, ⬜ not checked.
 | Automated scan (axe, WCAG A and AA) | ✅ | 0 violations on login, products, product detail, cart, checkout 1, checkout 2, complete |
 | Colour contrast 4.5:1 | ✅ | Part of the axe scan, no violations |
 | Visible keyboard focus indicator | ❌ | None on buttons or sort menu (BUG-016) |
-| Whole checkout usable by keyboard only | ⬜ | Not run end to end |
+| Cart reachable with Tab and openable with Enter | ❌ | Never receives focus; Enter and Space do nothing (BUG-020) |
+| Whole checkout usable by keyboard only | ❌ | Blocked by the cart link (BUG-020) |
 | Screen-reader announcement of errors | ⬜ | Needs a screen reader |
 
 ## Usability
