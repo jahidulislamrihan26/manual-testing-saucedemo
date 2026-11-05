@@ -42,5 +42,6 @@ Edit `tools/suite-data.js` to change cases, defects or results; the workbook, CS
 
 ## Related projects
 - [playwright-ui-automation-pom](https://github.com/jahidulislamrihan26/playwright-ui-automation-pom): automates 82 of these 87 cases and captures all 20 defects as expected-failure tests (see its traceability table).
+- [cypress-e2e-saucedemo](https://github.com/jahidulislamrihan26/cypress-e2e-saucedemo) and [selenium-pytest-saucedemo](https://github.com/jahidulislamrihan26/selenium-pytest-saucedemo): the same site automated in Cypress and in Selenium with Python, to compare the tools.
 - [qa-templates](https://github.com/jahidulislamrihan26/qa-templates): the blank versions of the documents in this package (test plan, test case, bug report, summary report).
 - [api-testing-newman-openapi](https://github.com/jahidulislamrihan26/api-testing-newman-openapi) and [k6-performance-testing](https://github.com/jahidulislamrihan26/k6-performance-testing): API and performance testing projects.
