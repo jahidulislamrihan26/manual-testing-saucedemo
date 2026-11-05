@@ -27,6 +27,9 @@ jobs:
       - name: Dependency audit (fails on high or worse)
         run: npm audit --audit-level=high
         working-directory: tools
+      - name: The suite's own data is consistent (cases, requirements, defects, evidence)
+        run: npm test
+        working-directory: tools
       # The workbook, CSV files, defect pages and metrics are generated from tools/suite-data.js.
       - run: npm run build
         working-directory: tools

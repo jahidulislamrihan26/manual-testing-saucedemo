@@ -17,7 +17,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "node build-suite.js"
+    "build": "node build-suite.js",
+    "test": "node --test \"test/*.test.js\""
   },
   "dependencies": {
     "exceljs": "^4.4.0"
