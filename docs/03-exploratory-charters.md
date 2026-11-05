@@ -45,9 +45,9 @@ Format: **Explore** a target **with** resources **to discover** information. Ses
 | User | Findings |
 |---|---|
 | locked_out_user | Refused with correct message (good) |
-| performance_glitch_user | Login took 458 ms against 404 ms for standard_user; no slowdown reproduced at login |
+| performance_glitch_user | The address changes at once, but the product list appears after about 5.1 s (standard_user: about 0.15 s). **BUG-012**. (First timing here only watched the address bar and missed this; corrected after repeat measurements.) |
 | problem_user | Same image on all products (**BUG-004**), sort ignored (**BUG-005**), some Add/Remove buttons dead (**BUG-006**), last name typed into first name (**BUG-007**) |
 | error_user | Sort alert (**BUG-008**), two products cannot be added (**BUG-009**), order cannot be finished (**BUG-010**) |
 | visual_user | Different prices and shifted layout (**BUG-011**) |
 
-**Follow-up ideas not yet run:** performance_glitch_user timing on later pages (cart, checkout), keyboard-only checkout, screen-reader pass, Firefox and Safari smoke tests.
+**Follow-up ideas not yet run:** performance_glitch_user timing on later pages (cart, checkout; the delay may recur there), keyboard-only checkout, screen-reader pass, Firefox and Safari smoke tests.

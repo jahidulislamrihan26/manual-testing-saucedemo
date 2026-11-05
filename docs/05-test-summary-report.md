@@ -8,7 +8,7 @@
 | Report version | 1.0 |
 
 ## 1. Executive summary
-Core purchasing works for the standard user: login, sorting, cart, correct totals (item total + 8% tax) and order completion all pass. Three genuine defects exist in the standard flow, two of them Major: **checkout accepts an empty cart** (BUG-001) and **checkout accepts invalid data** (BUG-002). Eight further defects appear only for the site's special test users (problem, error, visual) and are reported to show the full defect process.
+Core purchasing works for the standard user: login, sorting, cart, correct totals (item total + 8% tax) and order completion all pass. Three genuine defects exist in the standard flow, two of them Major: **checkout accepts an empty cart** (BUG-001) and **checkout accepts invalid data** (BUG-002). Nine further defects appear only for the site's special test users (problem, error, visual, performance_glitch) and are reported to show the full defect process.
 
 **Recommendation: conditional go.** The exit rule (no Critical genuine defect, at most two Major) is met, but BUG-001 should be fixed before release because it allows zero-value orders.
 
@@ -17,33 +17,33 @@ Core purchasing works for the standard user: login, sorting, cart, correct total
 |---|---|
 | Test cases designed | 64 |
 | Executed | 60 (93.8%) |
-| Passed | 45 |
-| Failed | 15 |
+| Passed | 44 |
+| Failed | 16 |
 | Not run | 4 (Firefox, Edge, Safari, contrast analyser) |
-| Pass rate of executed | 75.0% |
-| Defects raised | 11 (3 Genuine, 8 Seeded) |
-| Critical / Major / Minor | 3 / 6 / 2 |
+| Pass rate of executed | 73.3% |
+| Defects raised | 12 (3 Genuine, 9 Seeded) |
+| Critical / Major / Minor | 3 / 7 / 2 |
 
 ```mermaid
 pie title Test case results (64 cases)
-    "Pass" : 45
-    "Fail" : 15
+    "Pass" : 44
+    "Fail" : 16
     "Not Run" : 4
 ```
 
 ```mermaid
-pie title Defects by severity (11)
+pie title Defects by severity (12)
     "Critical" : 3
-    "Major" : 6
+    "Major" : 7
     "Minor" : 2
 ```
 
-15 failures come from 11 defects; five failures are in the standard-user flow (BUG-001, BUG-002 x3, BUG-003) and ten are persona-specific.
+16 failures come from 12 defects; five failures are in the standard-user flow (BUG-001, BUG-002 x3, BUG-003) and eleven are persona-specific.
 
 ## 3. Results by module
 | Module | Total | Pass | Fail | Not Run |
 |---|---|---|---|---|
-| Login | 14 | 14 | 0 | 0 |
+| Login | 14 | 13 | 1 | 0 |
 | Session | 4 | 4 | 0 | 0 |
 | Products | 5 | 3 | 2 | 0 |
 | Sorting | 6 | 4 | 2 | 0 |
@@ -60,7 +60,7 @@ Every requirement has test cases (no gaps). Details in the workbook, sheet "Trac
 
 | Req | Area | Cases | Pass | Fail | Not Run |
 |---|---|---|---|---|---|
-| REQ-01 | Authentication | 13 | 13 | 0 | 0 |
+| REQ-01 | Authentication | 13 | 12 | 1 | 0 |
 | REQ-02 | Session & access | 4 | 4 | 0 | 0 |
 | REQ-03 | Catalogue | 4 | 2 | 2 | 0 |
 | REQ-04 | Sorting | 6 | 4 | 2 | 0 |
@@ -87,12 +87,13 @@ Every requirement has test cases (no gaps). Details in the workbook, sheet "Trac
 | [BUG-009](../defects/BUG-009.md) | error_user: Add to cart fails on two products | Major | Seeded |
 | [BUG-010](../defects/BUG-010.md) | error_user: order cannot be completed | Critical | Seeded |
 | [BUG-011](../defects/BUG-011.md) | visual_user: wrong prices and broken layout | Major | Seeded |
+| [BUG-012](../defects/BUG-012.md) | performance_glitch_user: product list appears about 5 s after login | Major | Seeded |
 
 ## 6. Risks and limitations
 1. **Browser coverage is incomplete.** Only Chrome was run. Firefox, Edge and Safari remain unverified.
 2. **Accessibility is partial.** No contrast analyser or screen reader was used; keyboard testing covered the login form only.
 3. **Script text in checkout** was accepted. Whether it is encoded when displayed was not examined, so a stored-XSS risk cannot be ruled out.
-4. **Performance** was not measured here (see the performance-testing project). The only timing was login for two users.
+4. **Performance** was not measured here (see the performance-testing project). The only timing was login for two users. That check was first done wrongly (it timed the address change, not when content appears) and reported no delay for performance_glitch_user; the automation suite measured it correctly (about 5 s) and this report was corrected (BUG-012).
 5. **Open product questions:** cart persistence after logout, Cancel destination, page titles (see test plan section 6).
 
 ## 7. Recommendations

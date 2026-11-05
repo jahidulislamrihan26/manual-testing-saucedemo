@@ -1,12 +1,12 @@
 {
   "total": 64,
-  "pass": 45,
-  "fail": 15,
+  "pass": 44,
+  "fail": 16,
   "notRun": 4,
   "executed": 60,
-  "passRate": 75,
+  "passRate": 73.3,
   "executionRate": 93.8,
-  "defects": 11,
+  "defects": 12,
   "bySeverity": [
     [
       "Critical",
@@ -14,7 +14,7 @@
     ],
     [
       "Major",
-      6
+      7
     ],
     [
       "Minor",
@@ -28,14 +28,14 @@
     ],
     [
       "Seeded",
-      8
+      9
     ]
   ],
   "byModule": {
     "Login": {
       "total": 14,
-      "pass": 14,
-      "fail": 0,
+      "pass": 13,
+      "fail": 1,
       "notRun": 0
     },
     "Session": {
@@ -104,8 +104,8 @@
       "REQ-01",
       "Authentication",
       13,
-      13,
-      0,
+      12,
+      1,
       0
     ],
     [

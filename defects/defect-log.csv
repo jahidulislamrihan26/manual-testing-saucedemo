@@ -10,3 +10,4 @@
 "BUG-009","Add to cart does nothing on two products for error_user","Major","High","Cart","Seeded","Open","TC-037","n/a"
 "BUG-010","Order cannot be completed for error_user","Critical","High","Checkout","Seeded","Open","TC-047","error-user-finish.png"
 "BUG-011","visual_user sees different prices and a broken layout","Major","High","Products","Seeded","Open","TC-023, TC-058","visual-user-products.png"
+"BUG-012","Product list appears about 5 seconds after login for performance_glitch_user","Major","Medium","Login","Seeded","Open","TC-014","n/a (timing, see automation test BUG-012)"

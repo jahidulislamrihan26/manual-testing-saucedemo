@@ -62,7 +62,7 @@ Priority comes from impact on revenue multiplied by likelihood of failure.
 | Test data | See [02-test-plan.md](02-test-plan.md) |
 
 ## 8. Deliverables
-Test strategy, test plan, 64 test cases with traceability matrix, defect log and 11 defect reports with evidence, exploratory charters, checklists, test summary report.
+Test strategy, test plan, 64 test cases with traceability matrix, defect log and 12 defect reports with evidence, exploratory charters, checklists, test summary report.
 
 ## 9. Assumptions and constraints
 - Public demo site may change; results are valid for 2026-11-05.

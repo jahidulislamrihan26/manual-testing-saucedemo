@@ -48,7 +48,7 @@ const cases = [
   T('TC-011', 'REQ-01', 'Login', 'Enter key submits login form', 'Usability', 'Low', 'Login page open', USERS.std, '1. Fill both fields\n2. Press Enter in password field', 'Form submits and Products page opens', 'Products page opened', 'Pass'),
   T('TC-012', 'REQ-01', 'Login', 'Error banner can be dismissed', 'Usability', 'Low', 'Error banner visible', 'empty form', '1. Click Login with empty form\n2. Click X on the red banner', 'Banner disappears', 'Banner disappeared', 'Pass'),
   T('TC-013', 'REQ-11', 'Login', 'Keyboard tab order on login form', 'Accessibility', 'Medium', 'Login page open', 'n/a', '1. Press Tab repeatedly from page load', 'Focus moves username -> password -> Login', 'Focus reached username, then password, in order', 'Pass'),
-  T('TC-014', 'REQ-01', 'Login', 'performance_glitch_user logs in within 3 s', 'Performance', 'Medium', 'Login page open', USERS.perf, '1. Log in as performance_glitch_user\n2. Time until Products page loads', 'Products page loads within 3 s', 'Loaded in 458 ms (standard_user: 404 ms). Glitch not reproduced at login.', 'Pass', '', ''),
+  T('TC-014', 'REQ-01', 'Login', 'performance_glitch_user sees products within 3 s of logging in', 'Performance', 'Medium', 'Login page open', USERS.perf, '1. Log in as performance_glitch_user\n2. Time from clicking Login until the product list is visible', 'Product list visible within 3 s (standard_user: about 0.15 s)', 'Product list appeared after about 5.1 s on repeated measurements (standard_user: 0.14 to 0.17 s). The URL changes at once but the page content is delayed.', 'Fail', 'BUG-012', ''),
   // ---- Session
   T('TC-015', 'REQ-02', 'Session', 'Direct URL access without login is blocked', 'Security', 'Critical', 'Not logged in', 'n/a', '1. Open /inventory.html directly in a new session', 'Redirected to login with an access error', 'Login page shown with "You can only access \'/inventory.html\' when you are logged in."', 'Pass', '', 'direct-access-error.png'),
   T('TC-016', 'REQ-02', 'Session', 'Back button after logout does not reveal account', 'Security', 'High', 'Logged in', USERS.std, '1. Log out\n2. Click browser Back', 'Login page with access error; no product data', 'Login page shown with access error', 'Pass', '', 'back-after-logout.png'),
@@ -140,5 +140,10 @@ const defects = [
   D('BUG-011', 'visual_user sees different prices and a broken layout', 'Major', 'High', 'Products', 'Seeded', USERS.vis,
     '1. Log in as visual_user\n2. Compare the Products page with standard_user', 'Same prices and layout.', 'Prices differ (Backpack $50.36 vs $29.99, Bike Light $4.24 vs $9.99, Bolt T-Shirt $7.02 vs $15.99, Fleece Jacket $63.96 vs $49.99), cart icon misplaced, titles shifted, Fleece Jacket image cropped.', 'visual-user-products.png', 'TC-023, TC-058', SEEDED),
 ];
+
+defects.push(
+  D('BUG-012', 'Product list appears about 5 seconds after login for performance_glitch_user', 'Major', 'Medium', 'Login', 'Seeded', USERS.perf,
+    '1. Open the login page\n2. Log in as performance_glitch_user\n3. Time from clicking Login until the product list is visible (measured three times)', 'Product list visible within 3 s, like standard_user (about 0.15 s).', 'The address changes immediately but the product list appears after about 5.1 s (measured: 5.13 s, 5.15 s, and a 5.1 s block on the click itself).', 'n/a (timing, see automation test BUG-012)', 'TC-014', SEEDED + ' An earlier timing of this user only watched the address bar and wrongly reported no delay; it was corrected after the automation suite measured when the content actually appears.'),
+);
 
 module.exports = { EXEC_DATE, requirements, cases, defects };
