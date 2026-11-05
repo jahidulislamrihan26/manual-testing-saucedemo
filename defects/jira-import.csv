@@ -1,0 +1,319 @@
+﻿"Summary","Issue Type","Priority","Labels","Component","Environment","Description"
+"BUG-001: Checkout can be started and completed with an empty cart","Bug","High","major-severity checkout genuine","Checkout","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-038
+
+*Steps to reproduce*
+# Log in as standard_user
+# Click the cart icon (cart is empty)
+# Click Checkout
+# Enter First Test, Last User, ZIP 12345
+# Click Continue
+
+*Expected result*
+Checkout is blocked with a message such as ""Your cart is empty"".
+
+*Actual result*
+Checkout step two opens with Total: $0.00 and a Finish button.
+
+*Evidence:* empty-cart-checkout-allowed.png (attach from the evidence folder of the repository)"
+"BUG-002: Checkout form has no input validation beyond ""required""","Bug","Medium","major-severity checkout genuine","Checkout","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-042, TC-043, TC-044
+
+*Steps to reproduce*
+# Add any product and start checkout
+# Enter first name of 300 ""A"", last name ""<script>alert(1)</script>"", ZIP ""-1"" (also tried ""abc!@#"" and three spaces in each field)
+# Click Continue
+
+*Expected result*
+Invalid ZIP, whitespace-only values and excessive length are rejected with a field error.
+
+*Actual result*
+All variants accepted and checkout moved to the overview page. (Output encoding of the script text was not examined.)
+
+*Evidence:* checkout-invalid-zip-accepted.png (attach from the evidence folder of the repository)"
+"BUG-003: Reset App State clears the cart badge but leaves product buttons on ""Remove""","Bug","Medium","minor-severity cart genuine","Cart","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Minor
+*Found:* 2026-11-05
+*Failed test cases:* TC-034
+
+*Steps to reproduce*
+# Log in as standard_user
+# Click Add to cart on Sauce Labs Backpack
+# Open the menu and click Reset App State
+# Look at the Backpack button
+
+*Expected result*
+Cart badge cleared and button back to ""Add to cart"".
+
+*Actual result*
+Badge cleared but the button still reads ""Remove"" while the cart is empty. The user cannot re-add the item without a page reload.
+
+*Evidence:* reset-state-bug.png (attach from the evidence folder of the repository)"
+"BUG-004: Every product shows the same placeholder image for problem_user","Bug","Medium","minor-severity products seeded","Products","https://www.saucedemo.com, Chrome (Chromium), user problem_user / secret_sauce","*Severity:* Minor
+*Found:* 2026-11-05
+*Failed test cases:* TC-022
+
+*Steps to reproduce*
+# Log in as problem_user
+# Look at the images on the Products page
+
+*Expected result*
+Each product shows its own image.
+
+*Actual result*
+All six products show one placeholder image.
+
+*Evidence:* problem-user-products.png (attach from the evidence folder of the repository)"
+"BUG-005: Sorting has no effect for problem_user","Bug","Medium","major-severity sorting seeded","Sorting","https://www.saucedemo.com, Chrome (Chromium), user problem_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-028
+
+*Steps to reproduce*
+# Log in as problem_user
+# Choose Name (Z to A) in the sort menu
+
+*Expected result*
+Products reorder Z to A.
+
+*Actual result*
+Order stays A to Z.
+
+*Evidence:* problem-user-products.png (attach from the evidence folder of the repository)"
+"BUG-006: Add and Remove buttons fail on several products for problem_user","Bug","High","critical-severity cart seeded","Cart","https://www.saucedemo.com, Chrome (Chromium), user problem_user / secret_sauce","*Severity:* Critical
+*Found:* 2026-11-05
+*Failed test cases:* TC-035, TC-036
+
+*Steps to reproduce*
+# Log in as problem_user
+# Click Add to cart on Bolt T-Shirt, Fleece Jacket and Test.allTheThings() T-Shirt
+# Add Backpack, Bike Light and Onesie, then click Remove on each
+
+*Expected result*
+Add changes the button to Remove; Remove changes it back.
+
+*Actual result*
+Add does nothing for the first three products. Remove does nothing for the last three.
+
+*Evidence:* problem-user-remove.png (attach from the evidence folder of the repository)"
+"BUG-007: Last Name text is typed into the First Name field for problem_user","Bug","High","critical-severity checkout seeded","Checkout","https://www.saucedemo.com, Chrome (Chromium), user problem_user / secret_sauce","*Severity:* Critical
+*Found:* 2026-11-05
+*Failed test cases:* TC-046
+
+*Steps to reproduce*
+# Log in as problem_user and add Backpack
+# Start checkout
+# Type Test / User / 12345 into the three fields
+# Click Continue
+
+*Expected result*
+Each field keeps its own value and checkout continues.
+
+*Actual result*
+Last Name stays empty, First Name shows ""User"", error ""Last Name is required"". Checkout cannot be completed.
+
+*Evidence:* problem-user-checkout.png (attach from the evidence folder of the repository)"
+"BUG-008: Sorting shows an error alert for error_user","Bug","Medium","major-severity sorting seeded","Sorting","https://www.saucedemo.com, Chrome (Chromium), user error_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-029
+
+*Steps to reproduce*
+# Log in as error_user
+# Choose Name (Z to A)
+
+*Expected result*
+Products reorder.
+
+*Actual result*
+Alert: ""Sorting is broken! This error has been reported to Backtrace."" and the order is unchanged.
+
+*Evidence:* n/a (browser alert) (attach from the evidence folder of the repository)"
+"BUG-009: Add to cart does nothing on two products for error_user","Bug","High","major-severity cart seeded","Cart","https://www.saucedemo.com, Chrome (Chromium), user error_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-037
+
+*Steps to reproduce*
+# Log in as error_user
+# Click Add to cart on Bolt T-Shirt and Fleece Jacket
+
+*Expected result*
+Buttons change to Remove and the badge increases.
+
+*Actual result*
+No change in the button or badge.
+
+*Evidence:* n/a (attach from the evidence folder of the repository)"
+"BUG-010: Order cannot be completed for error_user","Bug","High","critical-severity checkout seeded","Checkout","https://www.saucedemo.com, Chrome (Chromium), user error_user / secret_sauce","*Severity:* Critical
+*Found:* 2026-11-05
+*Failed test cases:* TC-047
+
+*Steps to reproduce*
+# Log in as error_user and add a product that can be added
+# Complete checkout details and click Continue
+# Click Finish
+
+*Expected result*
+Order confirmation page.
+
+*Actual result*
+Stays on checkout step two; order is not placed.
+
+*Evidence:* error-user-finish.png (attach from the evidence folder of the repository)"
+"BUG-011: visual_user sees different prices and a broken layout","Bug","High","major-severity products seeded","Products","https://www.saucedemo.com, Chrome (Chromium), user visual_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-023, TC-058
+
+*Steps to reproduce*
+# Log in as visual_user
+# Compare the Products page with standard_user
+
+*Expected result*
+Same prices and layout.
+
+*Actual result*
+Prices differ (Backpack $50.36 vs $29.99, Bike Light $4.24 vs $9.99, Bolt T-Shirt $7.02 vs $15.99, Fleece Jacket $63.96 vs $49.99), cart icon misplaced, titles shifted, Fleece Jacket image cropped.
+
+*Evidence:* visual-user-products.png (attach from the evidence folder of the repository)"
+"BUG-012: Product list appears about 5 seconds after login for performance_glitch_user","Bug","Medium","major-severity login seeded","Login","https://www.saucedemo.com, Chrome (Chromium), user performance_glitch_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-014
+
+*Steps to reproduce*
+# Open the login page
+# Log in as performance_glitch_user
+# Time from clicking Login until the product list is visible (measured three times)
+
+*Expected result*
+Product list visible within 3 s, like standard_user (about 0.15 s).
+
+*Actual result*
+The address changes immediately but the product list appears after about 5.1 s (measured: 5.13 s, 5.15 s, and a 5.1 s block on the click itself).
+
+*Evidence:* n/a (timing, see automation test BUG-012) (attach from the evidence folder of the repository)"
+"BUG-013: Login can be bypassed by forging an unsigned session cookie","Bug","High","critical-severity security genuine","Security","https://www.saucedemo.com, Chrome (Chromium), user none (no password needed)","*Severity:* Critical
+*Found:* 2026-11-05
+*Failed test cases:* TC-065, TC-066
+
+*Steps to reproduce*
+# Open a fresh private window on https://www.saucedemo.com (not logged in)
+# In the browser tools add a cookie for www.saucedemo.com: name session-username, value standard_user, path /
+# Open https://www.saucedemo.com/inventory.html
+
+*Expected result*
+Redirected to the login page. A session must be proven with a password and be an unguessable, signed value, with HttpOnly and Secure set.
+
+*Actual result*
+The shop opens as standard_user with no password. The same works for problem_user (and any other username); only locked_out_user is turned away. The cookie holds the plain username, HttpOnly is false, Secure is false, SameSite is Lax, lifetime about 10 minutes.
+
+*Evidence:* forged-cookie-access.png (attach from the evidence folder of the repository)"
+"BUG-014: Order confirmation page can be opened without placing an order","Bug","Medium","major-severity checkout genuine","Checkout","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-073
+
+*Steps to reproduce*
+# Log in as standard_user with an empty cart
+# Open https://www.saucedemo.com/checkout-complete.html directly
+
+*Expected result*
+Redirected to the cart or products page.
+
+*Actual result*
+The page shows ""Thank you for your order! Your order has been dispatched"" although no order exists.
+
+*Evidence:* direct-complete-no-order.png (attach from the evidence folder of the repository)"
+"BUG-015: Checkout overview can be opened with an empty cart and an order can be submitted again with the Back button","Bug","High","major-severity checkout genuine","Checkout","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-074, TC-075
+
+*Steps to reproduce*
+# A. 1. Log in with an empty cart
+#    2. Open https://www.saucedemo.com/checkout-step-two.html directly
+# B. 1. Place a normal order
+#    2. Click the browser Back button
+#    3. Click Finish
+
+*Expected result*
+A: redirected to the cart. B: the overview is not shown again, or Finish does nothing.
+
+*Actual result*
+A: overview opens with Total $0.00 and a working Finish button. B: the overview returns with Total $0.00 and Finish shows the confirmation again, so a second (empty) order is accepted. Related to BUG-001.
+
+*Evidence:* back-after-order.png (attach from the evidence folder of the repository)"
+"BUG-016: Keyboard focus is not visible on buttons and the sort menu","Bug","Medium","major-severity accessibility genuine","Accessibility","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Major
+*Found:* 2026-11-05
+*Failed test cases:* TC-084
+
+*Steps to reproduce*
+# Log in as standard_user
+# Press Tab until the Add to cart button of Backpack is focused (or the sort menu)
+# Compare it with an unfocused button
+
+*Expected result*
+A clear focus indicator is shown (WCAG 2.1 success criterion 2.4.7, level AA).
+
+*Actual result*
+The focused control looks identical to an unfocused one: computed outline-style none, no box-shadow, no colour change. Keyboard users cannot tell where they are. The automated axe scan does not detect this, it was found by testing with the keyboard.
+
+*Evidence:* keyboard-focus.png (attach from the evidence folder of the repository)"
+"BUG-017: Chosen sort order is lost after viewing a product","Bug","Low","minor-severity sorting genuine","Sorting","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Minor
+*Found:* 2026-11-05
+*Failed test cases:* TC-080
+
+*Steps to reproduce*
+# Log in and choose Price (high to low)
+# Open any product
+# Click Back to products
+
+*Expected result*
+The list is still sorted high to low.
+
+*Actual result*
+The sort resets to Name (A to Z).
+
+*Evidence:* n/a (visible in the sort menu) (attach from the evidence folder of the repository)"
+"BUG-018: No standard security headers are sent","Bug","Medium","minor-severity security genuine","Security","https://www.saucedemo.com, Chrome (Chromium), user n/a (any request)","*Severity:* Minor
+*Found:* 2026-11-05
+*Failed test cases:* TC-069
+
+*Steps to reproduce*
+# Run: curl -I https://www.saucedemo.com/
+# Read the response headers
+
+*Expected result*
+Strict-Transport-Security, Content-Security-Policy, X-Content-Type-Options, X-Frame-Options (or frame-ancestors) and Referrer-Policy are present.
+
+*Actual result*
+Only Server (GitHub.com) and Cache-Control are sent; none of the five security headers. Plain HTTP does redirect to HTTPS (301), which is good.
+
+*Evidence:* n/a (response headers) (attach from the evidence folder of the repository)"
+"BUG-019: Unknown addresses show a blank page and the product not-found page uses telephone wording","Bug","Low","minor-severity navigation genuine","Navigation","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Minor
+*Found:* 2026-11-05
+*Failed test cases:* TC-072
+
+*Steps to reproduce*
+# Open https://www.saucedemo.com/nonexistent-page.html
+# Open https://www.saucedemo.com/inventory-item.html?id=999
+
+*Expected result*
+A plain-language ""page not found"" message with a link back to the shop.
+
+*Actual result*
+1: a blank page (HTTP 404, no text). 2: ""ITEM NOT FOUND - We're sorry, but your call could not be completed as dialled. Please check your number, and try your call again."" (wording for a phone line, not a web shop).
+
+*Evidence:* detail-invalid-id.png (attach from the evidence folder of the repository)"
+"BUG-020: The cart cannot be reached or opened with the keyboard","Bug","High","critical-severity accessibility genuine","Accessibility","https://www.saucedemo.com, Chrome (Chromium), user standard_user / secret_sauce","*Severity:* Critical
+*Found:* 2026-11-05
+*Failed test cases:* TC-086, TC-087
+
+*Steps to reproduce*
+# Log in as standard_user
+# Press Tab repeatedly from the top of the products page (40 presses are enough to pass every control)
+# Watch which controls receive focus, then focus the cart icon by script and press Enter or Space
+
+*Expected result*
+The cart link receives focus in the Tab order and Enter opens the cart (WCAG 2.1 success criterion 2.1.1 Keyboard, level A).
+
+*Actual result*
+Tab goes through the menu, sort, every product link and button, but never reaches the cart icon. It is an <a role=""button"" data-test=""shopping-cart-link""> with no href and no tabindex. Pressing Enter or Space on it (focused by script) does nothing. A keyboard-only shopper cannot open the cart, so cannot check out. The automated axe scan reported no violation for it. Found while writing the automated keyboard test, after the first manual keyboard pass had missed it.
+
+*Evidence:* n/a (keyboard behaviour) (attach from the evidence folder of the repository)"

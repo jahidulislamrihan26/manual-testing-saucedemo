@@ -43,6 +43,17 @@ fs.writeFileSync(path.join(SUITE, 'test-cases.csv'), csv([tcHead, ...cases.map((
 const dHead = ['ID', 'Title', 'Severity', 'Priority', 'Module', 'Origin', 'Status', 'Failed Test Cases', 'Evidence'];
 fs.writeFileSync(path.join(DEF, 'defect-log.csv'), csv([dHead, ...defects.map((d) => [d.id, d.title, d.severity, d.priority, d.module, d.kind, 'Open', d.tcs, d.evidence])]));
 
+// ---------- Jira import file (Jira CSV import: map these columns on the import screen, see docs/06-defect-workflow.md)
+const JIRA_PRIORITY = { Critical: 'Highest', High: 'High', Medium: 'Medium', Low: 'Low' };
+const wiki = (text) => String(text).replace(/\{/g, '\\{'); // braces start macros in Jira wiki markup
+const jiraHead = ['Summary', 'Issue Type', 'Priority', 'Labels', 'Component', 'Environment', 'Description'];
+fs.writeFileSync(path.join(DEF, 'jira-import.csv'), csv([jiraHead, ...defects.map((d) => [
+  `${d.id}: ${d.title}`, 'Bug', JIRA_PRIORITY[d.priority] || 'Medium',
+  `${d.severity.toLowerCase()}-severity ${d.module.toLowerCase().replace(/[^a-z0-9]+/g, '-')} ${d.kind.toLowerCase()}`, d.module,
+  `https://www.saucedemo.com, Chrome (Chromium), user ${d.user}`,
+  `*Severity:* ${d.severity}\n*Found:* ${EXEC_DATE}\n*Failed test cases:* ${d.tcs}\n\n*Steps to reproduce*\n${d.steps.split('\n').map((s) => '# ' + wiki(s.replace(/^\d+\.\s*/, ''))).join('\n')}\n\n*Expected result*\n${wiki(d.expected)}\n\n*Actual result*\n${wiki(d.actual)}\n\n*Evidence:* ${d.evidence || 'none (reproduce with the steps)'} (attach from the evidence folder of the repository)`,
+])]));
+
 // ---------- bug report pages
 for (const d of defects) {
   const img = d.evidence.endsWith('.png') ? `\n## Evidence\n![${d.id}](../evidence/${d.evidence})\n` : '\n## Evidence\nBrowser alert or behaviour with no screenshot; reproduce with the steps above.\n';

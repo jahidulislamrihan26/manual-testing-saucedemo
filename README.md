@@ -23,6 +23,7 @@ A complete manual test package for https://www.saucedemo.com, built the way a QA
 | Exploratory testing charters with session notes | [docs/03-exploratory-charters.md](docs/03-exploratory-charters.md) |
 | Accessibility, usability, security, compatibility checklists | [docs/04-checklists.md](docs/04-checklists.md) |
 | **Test summary report** (start here) | [docs/05-test-summary-report.md](docs/05-test-summary-report.md) |
+| Defect workflow: report fields, severity vs priority, life of a defect, and the [Jira import file](defects/jira-import.csv) | [docs/06-defect-workflow.md](docs/06-defect-workflow.md) |
 | Excel workbook: dashboard, test cases, traceability matrix, defect log | [test-suite/SauceDemo-Test-Suite.xlsx](test-suite/SauceDemo-Test-Suite.xlsx) |
 | Test cases as CSV | [test-suite/test-cases.csv](test-suite/test-cases.csv) |
 | Defect reports and log | [defects/](defects) |
